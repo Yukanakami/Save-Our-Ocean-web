@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whale Animation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    /* General page styles */
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    background: #f2f2f2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Loading screen styles */
+#loading-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff;
+    z-index: 1000;
+    transition: opacity 1s ease-out;
+}
+
+.whale-animation {
+    position: relative;
+    height: 60vmin;
+    width: 70vmin;
+}
+
+.whale-animation .container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    background: linear-gradient(#99ccff, #eee);
+    box-shadow: 7px 7px 19px #d3d3d3, -7px -7px 19px #ffffff;
+    height: 100%;
+    width: 100%;
+}
+
+/* Whale animation styles */
+.whale-animation .body::after {
+    position: absolute;
+    content: '';
+    background: #89CFF0;
+    height: 25vmin;
+    width: 33vmin;
+    border-bottom-left-radius: 150px;
+    border-top-left-radius: 300px;
+    border-bottom-right-radius: 100px;
+    border-top-right-radius: 700px;
+    top: 18vmin;
+    left: -13vmin;
+    z-index: 1;
+}
+
+.whale-animation .tail {
+    position: relative;
+    top: 35vmin;
+    left: 18vmin;
+    background-color: #89CFF0;
+    width: 10vmin;
+    height: 8vmin;
+    border-radius: 10% 80%;
+    border-top-left-radius: 0;
+    z-index: 1;
+}
+
+.whale-animation .tail::before {
+    content: '';
+    position: absolute;
+    background-color: #89CFF0;
+    width: 10vmin;
+    height: 8vmin;
+    top: -5vmin;
+    left: -1vmin;
+    border-radius: 80% 10%;
+    margin: 0 0 -130px 0;
+    border-bottom-left-radius: 0;
+}
+
+.whale-animation .hand {
+    position: relative;
+    top: 30vmin;
+    left: -5vmin;
+    background-color: #89CFF0;
+    width: 10vmin;
+    height: 8vmin;
+    border-radius: 10% 80%;
+    border-top-left-radius: 0;
+}
+
+.whale-animation .eye {
+    z-index: 2;
+    position: relative;
+    top: 18vmin;
+    left: -10vmin;
+    background-color: white;
+    width: 4vmin;
+    height: 4vmin;
+    border-radius: 50%;
+}
+
+.whale-animation .eye::before {
+    content: '';
+    position: absolute;
+    background-color: black;
+    width: 2vmin;
+    height: 2vmin;
+    top: 2vmin;
+    left: 1vmin;
+    border-radius: 50%;
+}
+
+.whale-animation .blush {
+    position: relative;
+    top: 18vmin;
+    left: -5vmin;
+    background-color: pink;
+    width: 3vmin;
+    height: 3vmin;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.whale-animation .water {
+    border-top: 7vmin solid #004466;
+    border-left: 4vmin solid transparent;
+    opacity: 0.7;
+    border-right: 4vmin solid transparent;
+    height: 0;
+    width: 3vmin;
+    border-radius: 14px;
+    top: -10vmin;
+    position: relative;
+    left: -9vmin;
+    z-index: 1;
+}
+
+.whale-animation .puff1,
+.whale-animation .puff2,
+.whale-animation .puff3 {
+    position: relative;
+    background: #004466;
+    box-shadow: 0 10px 10px rgba(255, 255, 255, .2);
+    height: 4vmin;
+    width: 4vmin;
+    border-radius: 50%;
+}
+
+.whale-animation .puff1 {
+    top: -18vmin;
+    left: -8vmin;
+    opacity: 0.5;
+    animation: move .7s .10s infinite;
+}
+
+.whale-animation .puff2 {
+    top: -22vmin;
+    left: -5vmin;
+    opacity: 0.6;
+    animation: move .8s .5s infinite;
+}
+
+.whale-animation .puff3 {
+    top: -26vmin;
+    left: -2.5vmin;
+    opacity: 0.4;
+    animation: move .6s infinite;
+}
+
+.whale-animation .drop {
+    height: 1vmin;
+    width: 1vmin;
+    border-radius: 50%;
+    background-color: #004466;
+    position: absolute;
+    top: 18vmin;
+    left: -5vmin;
+    opacity: 0.6;
+    animation: up 3s ease-out infinite;
+}
+
+.whale-animation .drop::before {
+    content: "";
+    height: 1.5vmin;
+    width: 1vmin;
+    border-radius: 50%;
+    background-color: #004466;
+    position: absolute;
+    top: 5vmin;
+    left: 2vmin;
+    animation: up 3s 0.5s ease-out infinite;
+}
+
+.whale-animation .drop::after {
+    content: "";
+    height: 2vmin;
+    width: 2vmin;
+    border-radius: 50%;
+    background-color: #004466;
+    position: absolute;
+    top: 5vmin;
+    left: 2vmin;
+    animation: up 3s 0.7s ease-out infinite;
+}
+
+@keyframes up {
+    0% { transform: translateY(0); }
+    30% { transform: translateY(-150px); }
+    60% { transform: translateY(0); }
+}
+
+@keyframes waves {
+    0% { transform: translate(0, 0); }
+    20% { transform: translate(-7px, 5px) rotate(-2deg); }
+    40% { transform: translate(7px, -5px) rotate(2deg); }
+    60% { transform: translate(-7px, 5px) rotate(-2deg); }
+    80% { transform: translate(7px, -5px) rotate(2deg); }
+    100% { transform: translate(0, 0); }
+}
+
+@keyframes move {
+    0% { margin-top: 0; }
+    50% { margin-top: -5px; }
+    100% { margin-top: 0; }
+}
+
+/* Main content styles */
+#main-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 1s ease-in;
+}
+
+#main-content.show {
+    display: flex;
+    opacity: 1;
+}
+
+</style>
+
+<body>
+    <!-- Loading Screen with Whale Animation -->
+    <div id="loading-screen">
+        <div class="whale-animation">
+            <div class="container">
+                <div class="body">
+                    <div class="tail"></div>
+                    <div class="hand"></div>
+                    <div class="eye"></div>
+                    <div class="blush"></div>
+                    <div class="water"></div>
+                    <div class="puff1"></div>
+                    <div class="puff2"></div>
+                    <div class="puff3"></div>
+                    <div class="drop"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content">
+        <h1>Welcome to the Main Content</h1>
+    </div>
+
+    <!-- JavaScript to handle the transition -->
+    <script>
+        window.onload = function () {
+            setTimeout(function () {
+                document.getElementById('loading-screen').style.opacity = '0';
+                document.getElementById('main-content').classList.add('show');
+                setTimeout(function () {
+                    document.getElementById('loading-screen').style.display = 'none';
+                }, 1000); // Delay to allow opacity transition
+            }, 1000); // 1-second delay before starting the transition
+        };
+    </script>
+</body>
+
+</html>
